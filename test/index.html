@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="dns-prefetch" href="//hostname_to_resolve.com">
+    <link rel="subresource" href="./index.js">
+    <link rel="prefetch" href="./11.jpeg">
+    <link rel="prerender" href="./demo.html">
+    <link rel="shortcut icon" href="./11.jpeg" type="image/x-icon">
+
+    <title>Document</title>
+</head>
+<body>
+    <div>text</div>
+    <script>
+        let start=Date.now()
+        window.onload=function(){
+            let end=Date.now()
+            console.log("window-onload加载时间,",end-start)
+        }
+        window.addEventListener("DOMContentLoaded",()=>{
+            let end=Date.now()
+            console.log("dom加载时间,",end-start)
+        })
+
+        Performance
+    </script>
+</body>
+</html>
