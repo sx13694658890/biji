@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //全局符号注册表
+        let genericSymbol = Symbol.for('foo');
+        //  console.log(genericSymbol); 
+        let fooGlobalSymbol = Symbol.for('foo'); // 创建新符号 let otherFooGlobalSymbol = Symbol.for('foo'); // 重用已有符号
+        // console.log(fooGlobalSymbol === genericSymbol); // true
+        // 使用 Symbol.keyFor()来查询全局注册表
+        // 创建全局符号
+        let s = Symbol('foo');
+        //console.log(Symbol.keyFor(s)); // foo
+        console.log('---------------Symbol------------------');
+        let s1 = Symbol('foo'),
+            s2 = Symbol('bar'),
+            s3 = Symbol('baz'),
+            s4 = Symbol('qux');
+        let o = {
+
+            name: "symbol",
+            [s1]: 'foo val'
+        };
+        //console.log(o[s1]);
+        Object.defineProperties(o, {
+            [s3]: { value: 'baz val' },
+            [s4]: { value: 'qux val' }
+        })
+        //console.log(Reflect.ownKeys(o));
+        let od = {
+            [Symbol('foob')]: 'foo val',
+            [Symbol('bar')]: 'bar val'
+        };
+        let barSymbol = Object.getOwnPropertySymbols(od).find(symbol => symbol.toString().match(/bar/))
+        // console.log(333,barSymbol)
+
+        console.log("-----内置符号well-known symbol--------")
+        // Symbol.asyncIterator
+        //Symbol.iterator
+        class Foo {
+            constructor(max) {
+                this.max = max
+                this.asyncIndex = 0
+            }
+            async *[Symbol.asyncIterator]() {
+                while (this.asyncIndex < this.max) {
+                    yield new Promise((resolve => resolve(this.asyncIndex++)))
+                }
+            }
+        }
+        class Food extends Foo {
+            static [Symbol.hasInstance]() {
+                return false
+            }
+        }
+        async function asyncCount() {
+            let f = new Foo(3)
+            console.log(Foo[Symbol.hasInstance](f));
+            // for await (const x of f){
+            //     console.log(x);
+            // }
+        }
+        // asyncCount()
+        // console.log(f[Symbol.asyncIterator]());
+
+        // Symbol.hasInstance
+        // Symbol.isConcatSpreadable
+        let initial = ['foo']
+        let array = ['bar']
+        array[Symbol.isConcatSpreadable] = false
+        let arrayLikeObject = { length: 1, 0: 'baz' };
+        arrayLikeObject[Symbol.isConcatSpreadable] = true;
+        let otherObject = new Set().add('qux');
+        // console.log(initial.concat(otherObject))
+        //Symbol.iterator
+        // Symbol.match
+
+        class FooMatcher {
+            constructor(str) {
+                
+                this.str = str
+            }
+            [Symbol.match](target) {
+                return target.includes(this.str)
+            }
+            [Symbol.replace](target, replacement) {
+                return target.split(this.str).join(replacement)
+            }
+            [Symbol.search](target) {
+                return target.indexOf(this.str)
+            }
+            [Symbol.split](target) {
+                return target.split(this.str)
+            }
+        }
+        class Bar  { 
+            constructor() {
+                this[Symbol.toStringTag]='Bar'
+                this[Symbol.toPrimitive] = function (hint) {
+                    console.log(111111,hint)
+                    switch (hint) {
+                        case 'number':
+                            return 3;
+                        case 'string':
+                            return 'string bar';
+                        case 'default':
+                        default:
+                            return 'default bar';
+                    }
+
+                }
+               
+            }
+            
+        }
+        class Baz extends Array {
+            static get [Symbol.species]() {
+                return Array;
+            }
+        }
+        // console.log(RegExp.prototype[Symbol.replace]);
+        //console.log('foobarbaz'.replace(new FooMatcher('oba'),'qux'))
+        // console.log('foobar'.match(new FooMatcher('bar')));
+        // Symbol.search
+        // console.log(RegExp.prototype[Symbol.search]);
+        const bar=new Bar()
+        // console.log('foobar'.search(new FooMatcher('bar')));
+        // console.log(3/bar);
+        // console.log('3'-bar);
+        // console.log(String(bar));
+        let ss=new Set();
+       
+
+        console.log(bar[Symbol.toStringTag]);
+        let dod={
+            foo:"bar"
+        }
+        dod[Symbol.unscopables]={
+            foo:false
+        }
+        with(dod){
+            console.log(foo);
+        }
+    </script>
+</body>
+
+</html>
