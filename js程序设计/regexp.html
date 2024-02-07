@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let pattern1 = /(..)or(.)/g;
+        let pattern2 = new RegExp('[bc]at/','i');
+        let pattern3 = /\.at$/gi;
+        // /\whello\\123/='\\whello\\\\123'
+        //console.log(pattern1.exec("cat, bat, sat, fat"));
+       // console.log(pattern1.exec("cat, bat, sat, fat"));
+
+        let text="this has been a short summer"
+        if(pattern1.test(text)){
+          //  console.log(RegExp.$3);
+        }
+        let num = 10;
+        let message = "abcde";
+       // console.log(message.charCodeAt(4));
+       // console.log(String.fromCodePoint(0x1F60A)); // ☺
+       // console.log(String.fromCharCode(55357, 56842,))
+
+       let stringValue = "Lorem ipsum dolor sit amet, consectetur adipisicing elit"; // o 4 7
+    //    console.log(stringValue.slice(-3));
+     //  console.log(stringValue.lastIndexOf('o'));
+       let pos=stringValue.indexOf('e')
+       let arr=[]
+       while(pos>-1){
+        arr.push(pos)
+        pos=stringValue.indexOf('e',pos+2)
+       }
+    //    console.log(arr);
+    let messages = "foo";
+    let stringIterator = message[Symbol.iterator]()
+   // console.log(stringIterator.next());
+    do{
+        {
+      //  console.log(stringIterator.next());
+       }
+    }while(!stringIterator.next().done)
+    //    @@iterator
+    let texts = "cat, bat, sat, fat";
+    let pattern = /.at/;
+    let matches = texts.replace(/at/g, "ond");
+    //console.log(matches)
+    let stringValues = "yellow";
+    //console.log(stringValues.localeCompare("yellow"));
+
+    console.log('------Global-------');
+    //console.log(1111, window.crypto.getRandomValues()*10);
+    console.log(Math.trunc(100.443));
+
+    let url="http://www.wrox.com/illegal value.js#start";
+    // console.log(decodeURIComponent(encodeURIComponent(url)));
+    //eval("console.log('hi')");
+    let  msg = "hello world";
+   // eval("console.log(msg)");
+   // eval("function sayHi() { console.log('hi'); }");
+//     var global = function() {
+//   return this;
+//         }();
+//         Math.fround() // 返回数值最接近的单精度(32 位)浮点值表示。
+//      function selectFrom(upper,lower){
+//         Math.random()*(upper-lower+1)+lower
+//      }
+//      selectFrom(10,5)
+  // console.log(new Array(5).fill('Greg').flat('4'));
+  // console.log(Array.from({length:1,0:"11"}));
+  
+   const iter={
+    *[Symbol.iterator](){
+        yield 1;
+        yield 2;
+        yield 3;
+    }
+   }
+   console.log(Array.from(iter,function(item){
+   // console.log(333,this);
+    return item*this.num
+   },{num:2}));
+  
+   const options = [1,,,,5];
+   for(const option of options){
+   // console.log(option===undefined);
+   }
+   //console.log('Array of....',Array.of(...[,,,]));
+   for(const [index,value] of options.entries()){
+   // console.log('object.entries',index,value);
+   }
+
+   let a = ["foo", "bar", "baz", "qux"];
+//    a.fill(6,1,3)
+let newColors = ["black", "brown"];
+   let ab=a.toLocaleString()
+  
+   function compare(v1,v2){
+    return v2-v1
+   }
+   newColors[Symbol.isConcatSpreadable]=true
+   // console.log('keys:',a.concat(newColors));
+   let colors = ["red", "green", "blue"];
+   let removed = colors.splice(2,0,'yellow');
+   //console.log(colors); // green,blue alert(removed);
+   const people = [
+      {name: "Matt",age: 27 },
+      {name: "Nicholas",age: 29} 
+    ];
+   // console.log(people.findIndex((element,index,array)=>element.age<28));
+    let numbers = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+    let everyResult = numbers.map((item, index, array) => item >2);
+    //console.log(everyResult);
+    const buf=new ArrayBuffer(16)
+    new DataView(buf)
+    const m1 = new Map([
+      ["key1", "val1"],
+      ["key2", "val2"],
+      ["key3", "val3"]
+    ]);
+    m1.set('key4','val4')
+    m1.clear()
+    //console.log(m1);
+    function run(){
+
+    }
+    const wm = new WeakMap();
+    const s = new Set(["val1", "val2", "val3"]);
+    //console.log(s.entries());
+    class Foo{
+        next(){}
+        [Symbol.iterator](){
+            let count=1
+            return {next(){
+                return {
+                    done:false,value:count
+                }
+            }}
+        }
+    }
+    // 生成器函数声明
+    function* generatorFn() {
+      //  console.log('iter value:', yield* [1, 2, 3]);
+    }
+   
+    for (const x of generatorFn()) {
+    //  console.log(x);
+    }
+    // const aa=generatorFn();
+    //console.log('generator:',aa.next());
+    //console.log('generator:',aa.next());
+    // console.log('generator:',aa.next('dd'));
+    // console.log('generator:',aa.next('dcc'));
+    function* nTimes(n){
+        if(n>0){
+            yield* nTimes(n-1)
+            yield n-1
+        }
+    }
+    for (const x of nTimes(3)) {
+      console.log(x);
+    }
+    </script>
+</body>
+</html>

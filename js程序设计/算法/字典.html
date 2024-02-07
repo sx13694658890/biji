@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //字典
+        function Dictionary() {
+            var items = {}
+            this.has = function (key) {
+                return key in items;
+            }
+            this.set = function (key, value) {
+                items[key] = value;
+            }
+            this.delete = function (key) {
+                if (this.has(key)) {
+                    delete items[key]
+                    return true
+                }
+                return false
+            }
+            this.get = function (key) {
+                return this.has(key) ? items[key] : undefined
+            }
+            this.values = function () {
+                let values = []
+                for (let i = 0, keys = Object.keys(items); i < keys.length; i++) {
+                    values.push(items[keys])
+                }
+                return values;
+            }
+        }
+
+        // 单链表
+        function LinkedList() {
+            let Node = function (element) {
+                this.element = element
+                this.next = null;
+            }
+            let length = 0;
+            let head = null;
+            this.append = function (element) {
+                let node = new Node(element),
+                    current;
+                if (head == null) {
+                    head = node
+                } else {
+                    current = head
+                    while (current.next) {
+                        current = current.next
+                    }
+                    current.next = node
+                }
+                length++
+            };
+            this.insert = function (position, element) {
+                if (position >= 0 && position <= length) {
+                    let node = new Node(element),
+                        current = head,
+                        previous,
+                        index = 0;
+                    if (previous == 0) {
+                        node.next = current
+                        head
+                    } else {
+                        while (index++ < previous) {
+                            previous = current
+                            current = current.next
+                        }
+                        node.next = current
+                        previous.next = node
+                    }
+                    length++
+                    return true
+                } else {
+                    return false
+                }
+            };
+            this.removeAt = function (position) {
+                if (position > -1 && position < length) {
+                    let current = head,
+                        previous,
+                        index = 0;
+                    if (position === 0) {
+                        head = current.next
+                    } else {
+                        while (index++ < position) {
+                            previous = current
+                            current = current.next
+                        }
+                        previous.next = current.next
+                    }
+                    length--
+                    return current.element
+                } else {
+                    return null
+                }
+            };
+            this.remove = function (element) {
+                let index = this.indexOf(element)
+                return this.removeAt(index)
+            };
+            this.indexOf = function (element) {
+                let current = head,
+                    index = 0;
+                while (current) {
+                    if (element === current.element) {
+                        return index
+                    }
+                    index++
+                    current = current.next
+                }
+                return -1
+            };
+            this.isEmpty = function () {
+                return length === 0
+            };
+            this.size = function () {
+                return length
+            };
+            this.getHead = function () { return head };
+            this.toString = function () {
+                let current = head,
+                    string = ''
+                while (current) {
+                    string += current.element + (current.next ? '\n' : '')
+                    current = current.next
+                }
+                return string
+
+            };
+            this.print = function () { };
+        }
+        let list = new LinkedList()
+
+
+
+        console.log('---分离链接---');
+        // 哈希列表    // 这对于同一位置出现的冲突和覆盖情况
+        function HashTable() {
+            var tables = []
+            
+            var ValuePair = function (key, value) {
+                this.key = key
+                this.value
+                this.toString = function () {
+                    return '[' + this.key + ' - ' + this.value + ']';
+                }
+            }
+           // 散列函数
+            var loseHashCode = function (key) {
+                var hash =5381;
+                for (var i = 0; i < key.length; i++) {
+                    hash =hash*33+ key.charCodeAt(i)
+                }
+                return hash %1017;
+            }
+
+            this.push = function (key, value) {
+                var position = loseHashCode(key)
+                if (table[position] == undefined) {
+                    tables[position] = new LinkedList()
+                    tables[position].append(new ValuePair(key, value))
+                }
+
+            }
+
+            this.remove = function (key) {
+                var position=loseHashCode(key)
+                if (tables[loseHashCode(key)] !== undefined) {
+                    var current = tables[loseHashCode(key)].getHead()
+                    while (current.next) {
+                        if (current.element.key === key) {
+                            tables[loseHashCode(key)].remove(current.element)
+                            if(tables[loseHashCode(key)].isEmpty()){
+                                tables[loseHashCode(key)]=undefined
+                            }
+
+                        }
+                        current=current.next
+                    }
+                    if (current.element.key=== key) {
+                        tables[loseHashCode(key)].remove(current.element)
+                        if(tables[loseHashCode(key)].isEmpty()){
+                                tables[loseHashCode(key)]=undefined
+                            }
+                            return true
+                    }
+                    
+                }
+                return false
+            }
+            this.get = function (key) {
+                if (tables[loseHashCode(key)] !== undefined) {
+                    var current = tables[loseHashCode(key)].getHead()
+                    while (current.next) {
+                        if (current.element.key === key) {
+                            return current.element.value
+                        }
+                        current=current.next
+                    }
+                    if (current.element.key=== key) {
+                        return current.element.key
+                    }
+                }
+                return undefined
+            }
+            this.print = function () {
+                for (var i = 0; i < table.length; ++i) {
+                    if (tables[i] !== undefined) {
+                        console.log(i + ':' + tables[i]);
+                    }
+                }
+            }
+        }
+        const hashTable = new HashTable()
+        hashTable.push('adb', '1233')
+
+       
+        console.log('---线性探查---'); // “如果索引为index的位置已经被占据了，就尝试index+1的位置。如果index+1的位置也被占据了，就尝试index+2的位置，以此类推”
+        function HashTable() {
+            var tables = []
+            var ValuePair = function (key, value) {
+                this.key = key
+                this.value
+                this.toString = function () {
+                    return '[' + this.key + ' - ' + this.value + ']';
+                }
+            }
+            var loseHashCode = function (key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash += key.charCodeAt(i)
+                }
+                return hash % 37;
+            }
+
+            this.push = function (key, value) {
+                var position = loseHashCode(key)
+                if (tables[position] == undefined) {
+                    tables[position] =new ValuePair(key, value)
+                }else{
+                    var index = ++position;
+                    while(tables[index] != undefined){
+                        index++;
+                    }
+                    tables[index] =new ValuePair(key, value)
+                }
+
+            }
+
+            this.remove = function (key) {
+                var position=loseHashCode(key)
+                if (tables[loseHashCode(key)] !== undefined) {
+                    var current = tables[loseHashCode(key)].getHead()
+                    while (current.next) {
+                        if (current.element.key === key) {
+                            tables[loseHashCode(key)].remove(current.element)
+                            if(tables[loseHashCode(key)].isEmpty()){
+                                tables[loseHashCode(key)]=undefined
+                            }
+
+                        }
+                        current=current.next
+                    }
+                    if (current.element.key=== key) {
+                        tables[loseHashCode(key)].remove(current.element)
+                        if(tables[loseHashCode(key)].isEmpty()){
+                                tables[loseHashCode(key)]=undefined
+                            }
+                            return true
+                    }
+                    
+                }
+                return false
+            }
+            this.get = function (key) {
+                var position = loseHashCode(key)
+                if (tables[position] !== undefined) {
+                    if(  tables[position].key===key){
+                        return tables[position].value
+                    }else{
+                        var index = ++position;
+                        while(tables[index] === undefined||tables[index].key!==key){
+                            index++
+                        }
+                        if( tables[index].key===key){
+                            return tables[position].value
+                        }
+                    }
+                }
+                return undefined
+            }
+            this.print = function () {
+                for (var i = 0; i < table.length; ++i) {
+                    if (tables[i] !== undefined) {
+                        console.log(i + ':' + tables[i]);
+                    }
+                }
+            }
+        }
+
+        console.log('---双散列法---');
+
+
+
+        // 弱化版本  weakMap WeakSet 没有entries keys values 没有强引用键
+
+    </script>
+</body>
+
+</html>

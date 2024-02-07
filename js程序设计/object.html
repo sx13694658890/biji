@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ruby> 
+        和<rt>hel</rt>
+    </ruby>
+    <script>
+
+        let o={
+            name:"1",
+            age:2
+        }
+        let oo=new Object()
+      //console.log(oo.propertyIsEnumerable('age'));
+        // 'Brick'.toLowerCase
+        for(let a in  {name:'2'}){
+            // console.log(a,'4444');
+        }
+        let num=0;
+        for (const a of [1,2,3,4,5]) {
+            if(a%3==0){
+                continue;
+            }
+            num++
+            // console.log(a,'4444');
+            // console.log(num,'num');
+        }
+        let person=new Object()
+        person.name='Nid'
+       // console.log(111444,person.hasOwnProperty("name"));
+
+        var color = "blue";
+        function changeColor(){
+            let anotherColor = "red";
+            function swapColors(){
+                let tempColor=anotherColor
+            }
+            if(color==='blue'){
+                color='red'
+            }
+        }
+        let now = new Date(Date.parse("May 23, 2019"))
+        let allU=new Date(2005, 4, 5, 17, 55, 55)
+        console.log(allU.getTimezoneOffset());
+        // console.log(allU);
+    </script>
+</body>
+</html>

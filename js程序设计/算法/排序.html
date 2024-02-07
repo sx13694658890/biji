@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       function ArrayList(){
+            var array=[]
+            this.insert=function(item){
+                array.push(item)
+            }
+            this.toString=function(){
+                return array.join()
+            }
+            var swap=function(index1,index2){
+                [array[index1],array[index2]]= [array[index2],array[index1]]
+            }
+            this.bubbleSort=function(){
+                var length=array.length
+                for(var i=0;i<length;i++){
+                    for(j=0;j<length-1-i;j++){
+                       if(array[j]>array[j+1]){
+                        swap(j,j+1)
+                       }
+                    }
+                }
+            }
+            this.selectionSort=function(){
+                var length=array.length,indexMin;
+                for(var i=0;i<length-1;i++){
+                    indexMin=i
+                    for(var j=i;j<length;j++){
+                        if(array[indexMin]>array[j]){
+                            indexMin=j
+                        }
+                    }
+                    if(i!==indexMin){
+                        swap(i,indexMin)
+                    }
+                }
+            }
+            this.insertionSort=function(){
+               var length=array.length,j,temp;
+               for(var i=1;i<length;i++){
+                    temp=array[i]
+                    j=i
+                    while(j>0&&array[j-1]>temp){
+                        array[j]=array[j-1]
+                        j--
+                    }
+                    array[j]=temp
+               }
+            }
+        } 
+       const arrList=new ArrayList()
+       arrList.insert(5)
+       arrList.insert(3)
+       arrList.insert(1)
+       arrList.insert(4)
+       arrList.insert(2)
+       arrList.insertionSort()
+      console.log( arrList.toString());
+    </script>
+</body>
+</html>
