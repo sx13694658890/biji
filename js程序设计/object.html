@@ -46,8 +46,39 @@
         }
         let now = new Date(Date.parse("May 23, 2019"))
         let allU=new Date(2005, 4, 5, 17, 55, 55)
-        console.log(allU.getTimezoneOffset());
+       // console.log(allU.getTimezoneOffset());
         // console.log(allU);
+        console.log('------object------');
+        let persons={
+            edition: 1,
+            year_:2017
+        }
+        Object.defineProperty(persons,'year',{
+            get(){
+               return this.year_;
+            },
+            set(value){
+                this.year_ = value;
+                console.log(value);
+            }
+        })
+        persons.name='ee'
+        // console.log(persons.year);
+        let book={}
+        Object.defineProperties(book,{
+            year:{
+                value:2011
+            }
+        })
+        let descriptors= Object.getOwnPropertyDescriptors(book)
+        for(let obj in descriptors){
+        //    console.log(descriptors[obj]);
+        }
+        let dest, src, result;
+        dest = {};
+        src = { id: 'src' }; 
+        result = Object.assign(dest, src);
+       console.log( Object.is('10',10));
     </script>
 </body>
 </html>

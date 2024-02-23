@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+
+        // console.log(navigator.cookieEnabled);
+        // console.log(navigator.hardwareConcurrency);
+        // console.log(navigator.javaEnabled());
+        // console.log(navigator.plugins);
+        // console.log(navigator.vendorSub);
+        // console.log(navigator.maxTouchPoints);
+        // console.log(screen.top);
+        // let stateObject = {foo:"bar"};
+        // history.pushState(stateObject,'my title','baz.html')
+        // window.addEventListener('popstate',event=>{
+        //     let state=event.state
+        //     console.log(state);
+        // })
+        // history.replaceState({newFoo:'newBar'},'new title')
+        // 客户端检测
+        console.log( document.all('container'));
+       
+        navigator.__defineGetter__('userAgent',()=>'ee')
+        // console.log(navigator.oscpu);
+        // console.log(navigator.platform);
+        // let p;
+       
+        //     navigator.geolocation.getCurrentPosition(
+        //     position=>{
+        //     console.log(position);
+        //     },error=>{ console.log(error);},
+        //     {
+        //     enableHighAccuracy:true
+        //     })
+        //   console.log(navigator.connection);
+        //   navigator.getBattery().then((battery) => console.log(battery))
+      console.log(navigator.hardwareConcurrency);
+      console.log(navigator.deviceMemory);
+      console.log(navigator.maxTouchPoints);
+    </script>
+</body>
+</html>

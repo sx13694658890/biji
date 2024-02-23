@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function createPerson(name, age, job) {
+        //     let o = new Object();
+        // }
+
+        // function Person(name, age, job) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.job = job;
+        //     this.sayName = function () {
+        //         console.log(this.name);
+        //     };
+        // }
+        let Person = function() {};
+
+        Person.prototype.name= "Nicholas";
+        Person.prototype.age=29;
+        let p1=new Person("Greg", 27, "Doctor");
+        console.log(111,  Object.getPrototypeOf(p1));
+        // console.log(222,p1);
+        let o = new Object();
+        let biped = {
+        numLegs: 2
+            };
+        let person = Object.create(biped);
+        // function Person() {}
+        Person.prototype.name = "Nicholas";
+        let person1 = new Person();
+        person1.name = "Greg";
+        console.log('hasOwnProperty:',person1.hasOwnProperty('name'));
+
+        function hasPrototypeProperty(object,name){
+            return !object.hasOwnProperty(name)&&(name in object)
+        }
+        // Object.getOwnPropertySymbols()
+        function SuperType(name) {
+            this.name = name;
+            this.colors = ["red", "blue", "green"];
+            this.property = true;
+        }
+        Object.prototype.isPrototypeOf(person1)
+        function SubType(name,age){
+            SuperType.call(this,name)
+            this.age=age
+        }
+        SubType.prototype=new SuperType()
+        class Vehicle{
+            constructor(){
+                console.log(new.target);
+                if (new.target === Vehicle) {
+      throw new Error('Vehicle cannot be directly instantiated');}
+            }
+        }
+        new Vehicle()
+    </script>
+</body>
+
+</html>
