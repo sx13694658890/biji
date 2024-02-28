@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="box" style="background-color: blue; width: 10px; height: 25px">
+        <iframe id="myIframe" src="" frameborder="0"></iframe>
+    </div>
+    <script>
+        let div1 = document.createElement("div");
+        div1.setAttribute("class", "box");
+        let div2 = document.createElement("div");
+        
+        let iframe=document.getElementById('myIframe')
+        let box=document.getElementById('box')
+      
+        let iframeDoc=iframe.contentWindow;
+        console.log(box.offsetParent);
+        
+
+        function getElementLeft(element){
+            let actualLeft=element.offsetLeft;
+            let current=element.offsetParent;
+            while(current!==null){
+                actualLeft+=current.offsetLeft
+            }
+            return actualLeft
+        }
+        let filter=function(node){
+            return node.tagName.toLowerCase()==='li'?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP
+        }
+        let iterator=document.createNodeIterator(box,NodeFilter.SHOW_ELEMENT,null,false)
+        console.log(iterator.nextNode());
+
+        console.log('-------TreeWalker--------');
+        let walker=document.createTreeWalker(box,NodeFilter.SHOW_ELEMENT,null,false)
+       
+
+
+        let  range=document.createRange()
+        range.selectNode(box)
+        console.log(range);
+    </script>
+</body>
+</html>
