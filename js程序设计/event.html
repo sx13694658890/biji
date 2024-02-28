@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <style>
+     .box{
+        user-select: none;
+        pointer-events: none; 
+    }
+   </style>
+</head>
+<body>
+    <div><input type="text"><button id="btn">change</button></div>
+    <script>
+        let btn=document.getElementById("btn")
+        let input=document.getElementsByTagName("input")[0]
+        input.addEventListener('compositionstart',(event)=>{
+            console.log(event.inputMethod);
+        },false)
+        document.body.addEventListener('click',(event)=>{
+             event=event||window.event
+            // event.preventDefault()
+            // event.stopPropagation()
+            if(event.getModifierState){
+                if(event.getModifierState('Shift')){
+                    alert("shift")
+                }
+            }
+        },false)
+
+        // ie
+        var handler=function(event){
+            event.cancelBubble=true
+            event.returnValue=false
+            console.log();
+        }
+        // btn.attachEvent('onclick',handler)
+        // btn.detachEvent('onclick',handler)
+        var event =new CustomEvent('abc',{detail:{num:0}})
+        
+        document.addEventListener('abc',(event)=>{
+            console.log(event);
+        },false)
+    </script>
+</body>
+</html>
